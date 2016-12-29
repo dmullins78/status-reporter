@@ -5,16 +5,20 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 public class PowerPointMakerTest {
 
     @Test
-    public void shouldMakeStuff() throws Exception {
-        List<WorkItem> workItems = new ArrayList<WorkItem>();
-        workItems.add(new WorkItem("1", "Summ", "CID", "Other"));
+    public void shouldMakeCompletedSection() throws Exception {
+        List<WorkItem> items = new ArrayList<WorkItem>();
+        items.add(new WorkItem("1", "Completed 1", "CID", "Other", asList("Dan", "Bob")));
+        items.add(new WorkItem("2", "Completed 2", "MFS", "Deposits", asList("Dan", "Bob")));
+
+        MonthlyStats monthlyStats = new MonthlyStats(items, items, null);
 
         PowerPointMaker powerPointMaker = new PowerPointMaker();
-//        PowerPointMakerTwo powerPointMaker = new PowerPointMakerTwo();
-        powerPointMaker.makeStuff(workItems);
-
+        powerPointMaker.makeStuff(monthlyStats, "hslf-table.ppt");
     }
+
 }

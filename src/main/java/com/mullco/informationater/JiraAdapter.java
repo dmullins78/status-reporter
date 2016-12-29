@@ -5,7 +5,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class JiraAdapter {
 
@@ -42,7 +45,7 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        return new WorkItem(issue.getId(), summary, depValue, productValue);
+        return new WorkItem(issue.getId(), summary, depValue, productValue, Collections.<String>emptyList());
     }
 
 }
