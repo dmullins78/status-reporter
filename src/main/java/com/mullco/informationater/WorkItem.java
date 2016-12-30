@@ -11,8 +11,9 @@ public class WorkItem {
     private final List<String> people;
     private final LocalDate completionDate;
     private boolean inProgress;
+    private String type;
 
-    public WorkItem(String id, String summary, String depValue, String productValue, List<String> people, LocalDate completionDate, boolean inProgress) {
+    public WorkItem(String id, String summary, String depValue, String productValue, List<String> people, LocalDate completionDate, boolean inProgress, String type) {
         this.id = id;
         this.summary = summary;
         this.depValue = depValue;
@@ -20,6 +21,7 @@ public class WorkItem {
         this.people = people;
         this.completionDate = completionDate;
         this.inProgress = inProgress;
+        this.type = type;
     }
 
     public String getId() {
@@ -48,5 +50,9 @@ public class WorkItem {
 
     public boolean isInProgress() {
         return inProgress;
+    }
+
+    public boolean isEpic() {
+        return type.equals("Epic");
     }
 }

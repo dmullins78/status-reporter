@@ -29,7 +29,7 @@ public class BacklogSection extends PowerPointSection {
 
         HSLFTable table = slide.createTable(4, 5);
         for (int i = 0; i < MEMBERS_AREAS.length; i++) {
-            cell.makeCell(table, 0, i, MEMBERS_AREAS[i]);
+            cell.makeHeaderCell(table, 0, i, MEMBERS_AREAS[i]);
             table.setColumnWidth(i, 200);
         }
 

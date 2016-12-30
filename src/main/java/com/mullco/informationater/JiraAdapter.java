@@ -1,14 +1,10 @@
 package com.mullco.informationater;
 
-import net.rcarz.jiraclient.BasicCredentials;
 import net.rcarz.jiraclient.Issue;
-import net.rcarz.jiraclient.JiraClient;
-import net.rcarz.jiraclient.Status;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.time.LocalDate;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,12 +33,16 @@ public class JiraAdapter {
 
     private WorkItem makeWorkItem(Issue issue) {
         String summary = (String) issue.getField("summary");
+        String type = issue.getIssueType().getName();
 
         String name = issue.getStatus().getName();
         boolean inProgress = name.equals("In Progress");
 
-        JSONObject department = (JSONObject) issue.getField("customfield_13602");
-        String depValue = department.getString("value");
+        String depValue = "";
+        Object department = issue.getField("customfield_13602");
+        if (department instanceof JSONObject) {
+            depValue = "" + ((JSONObject)department).get("value");
+        }
 
         LocalDate completionDateValue = LocalDate.now().plusDays(1);
         Object completionDate = issue.getField("customfield_11300");
@@ -58,7 +58,7 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        return new WorkItem(issue.getId(), summary, depValue, productValue, Collections.<String>emptyList(), completionDateValue, inProgress);
+        return new WorkItem(issue.getId(), summary, depValue, productValue, Collections.<String>emptyList(), completionDateValue, inProgress, type);
     }
 
 }

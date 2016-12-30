@@ -7,33 +7,47 @@ import org.apache.poi.sl.usermodel.VerticalAlignment;
 
 import java.awt.*;
 
-public class PowerpointTableCell {
+import static com.mullco.informationater.ppt.Colors.*;
+import static com.mullco.informationater.ppt.Colors.LIGHTGREEN;
 
-    public void makeCell(HSLFTable table, int rowIndex, int columnIndex, String textValue) {
+public class PowerpointTableCell {
+    public static final String FONT_FAMILY = "Calibri";
+    public static final double FONT_SIZE = 18.;
+
+    public void makeBoldCell(HSLFTable table, int rowIndex, int columnIndex, String textValue) {
+        HSLFTableCell cell = makeCell(table, rowIndex, columnIndex, textValue);
+
+        getFont(cell).setBold(true);
+    }
+
+    public void makeHeaderCell(HSLFTable table, int rowIndex, int columnIndex, String textValue) {
+        HSLFTableCell cell = makeCell(table, rowIndex, columnIndex, textValue);
+        cell.setHorizontalCentered(true);
+        cell.getFill().setForegroundColor(REALLYDARKGREEN());
+
+        getFont(cell).setBold(true);
+        getFont(cell).setFontColor(Color.white);
+    }
+
+    public HSLFTableCell makeCell(HSLFTable table, int rowIndex, int columnIndex, String textValue) {
         HSLFTableCell cell = table.getCell(rowIndex, columnIndex);
         cell.setText(textValue);
-
-        if (rowIndex % 2 == 0) {
-            cell.setFillColor(new Color(202, 211, 205));
-        } else if (rowIndex % 2 != 0) {
-            cell.setFillColor(new Color(230, 234, 231));
-        }
-
-        HSLFTextRun rt = cell.getTextParagraphs().get(0).getTextRuns().get(0);
-        rt.setFontFamily("Calibri");
-        rt.setFontSize(18.);
-
-        if (columnIndex == 0) {
-            rt.setBold(true);
-        }
-
-        if (rowIndex == 0) {
-            cell.getFill().setForegroundColor(new Color(0, 105, 60));
-            rt.setFontColor(Color.white);
-            rt.setBold(true);
-            cell.setHorizontalCentered(true);
-        }
-
         cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setFillColor(getRowColor(rowIndex));
+
+        HSLFTextRun rt = getFont(cell);
+        rt.setFontFamily(FONT_FAMILY);
+        rt.setFontSize(FONT_SIZE);
+
+        return cell;
     }
+
+    private Color getRowColor(int rowIndex) {
+        return rowIndex % 2 == 0 ? LIGHTGREEN() : DARKGREEN();
+    }
+
+    private HSLFTextRun getFont(HSLFTableCell cell) {
+        return cell.getTextParagraphs().get(0).getTextRuns().get(0);
+    }
+
 }

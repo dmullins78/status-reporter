@@ -25,12 +25,12 @@ public class CompletedSection extends PowerPointSection {
         table.setColumnWidth(0, 50);
         table.setColumnWidth(1, 325);
 
-        cell.makeCell(table, 0, 0, "Area");
-        cell.makeCell(table, 0, 1, "");
+        cell.makeHeaderCell(table, 0, 0, "Area");
+        cell.makeHeaderCell(table, 0, 1, "");
 
         for (int i = 0; i < data.size(); i++) {
             WorkItem workItem = data.get(i);
-            cell.makeCell(table, i + 1, 0, workItem.getDepValue());
+            cell.makeBoldCell(table, i + 1, 0, workItem.getDepValue());
             cell.makeCell(table, i + 1, 1, workItem.getSummary());
         }
 
