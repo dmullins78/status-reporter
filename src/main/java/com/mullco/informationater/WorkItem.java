@@ -1,5 +1,6 @@
 package com.mullco.informationater;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class WorkItem {
@@ -8,13 +9,17 @@ public class WorkItem {
     private final String depValue;
     private final String productValue;
     private final List<String> people;
+    private final LocalDate completionDate;
+    private boolean inProgress;
 
-    public WorkItem(String id, String summary, String depValue, String productValue, List<String> people) {
+    public WorkItem(String id, String summary, String depValue, String productValue, List<String> people, LocalDate completionDate, boolean inProgress) {
         this.id = id;
         this.summary = summary;
         this.depValue = depValue;
         this.productValue = productValue;
         this.people = people;
+        this.completionDate = completionDate;
+        this.inProgress = inProgress;
     }
 
     public String getId() {
@@ -37,13 +42,11 @@ public class WorkItem {
         return people;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItem{" +
-                "id='" + id + '\'' +
-                ", summary='" + summary + '\'' +
-                ", depValue='" + depValue + '\'' +
-                ", productValue='" + productValue + '\'' +
-                '}';
+    public LocalDate getCompletionDate() {
+        return completionDate;
+    }
+
+    public boolean isInProgress() {
+        return inProgress;
     }
 }

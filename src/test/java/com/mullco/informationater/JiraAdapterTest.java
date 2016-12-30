@@ -12,11 +12,6 @@ public class JiraAdapterTest {
     public void testSomeStuff() {
         JiraAdapter jiraAdapter = new JiraAdapter();
 
-        List<WorkItem> workItems = jiraAdapter.getStuff();
-        System.out.println("workItems.size() = " + workItems.size());
-
-        for (WorkItem workItem : workItems) {
-            System.out.println("workItem = " + workItem);
-        }
+        jiraAdapter.getStuff();
     }
 }
