@@ -1,12 +1,13 @@
 package com.mullco.informationater;
 
+import net.rcarz.jiraclient.BasicCredentials;
 import net.rcarz.jiraclient.Issue;
+import net.rcarz.jiraclient.JiraClient;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -32,11 +33,24 @@ public class JiraAdapter {
     }
 
     private WorkItem makeWorkItem(Issue issue) {
-        String summary = (String) issue.getField("summary");
+
+        String description = issue.getDescription();
         String type = issue.getIssueType().getName();
+
+        String summary = issue.getSummary();
+        String people = null;
+        if (type.equals("Epic")) {
+            people = (String) issue.getField("customfield_10801");
+        }
 
         String name = issue.getStatus().getName();
         boolean inProgress = name.equals("In Progress");
+
+        Double priority = 99d;
+        Object priorityO = issue.getField("customfield_15330");
+        if (priorityO instanceof Double) {
+            priority = (Double) priorityO;
+        }
 
         String depValue = "";
         Object department = issue.getField("customfield_13602");
@@ -58,7 +72,7 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        return new WorkItem(issue.getId(), summary, depValue, productValue, Collections.<String>emptyList(), completionDateValue, inProgress, type);
+        return new WorkItem(issue.getId(), summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority);
     }
 
 }

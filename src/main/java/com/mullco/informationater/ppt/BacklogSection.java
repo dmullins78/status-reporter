@@ -53,6 +53,12 @@ public class BacklogSection extends PowerPointSection {
     }
 
     private Map<String, List<WorkItem>> groupWorkByArea(List<WorkItem> data) {
-        return data.stream().collect(Collectors.groupingBy(WorkItem::getDepValue));
+        Map<String, List<WorkItem>> workByArea = data.stream().collect(Collectors.groupingBy(WorkItem::getDepValue));
+
+        for (List<WorkItem> workItems : workByArea.values()) {
+            workItems.sort((o1, o2) -> o1.getPriority().compareTo(o2.getPriority()));
+        }
+
+        return workByArea;
     }
 }

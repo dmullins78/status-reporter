@@ -1,27 +1,30 @@
 package com.mullco.informationater;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class WorkItem {
     private final String id;
     private final String summary;
     private final String depValue;
     private final String productValue;
-    private final List<String> people;
     private final LocalDate completionDate;
     private boolean inProgress;
     private String type;
+    private String description;
+    private String people;
+    private Double priority;
 
-    public WorkItem(String id, String summary, String depValue, String productValue, List<String> people, LocalDate completionDate, boolean inProgress, String type) {
+    public WorkItem(String id, String summary, String depValue, String productValue, LocalDate completionDate, boolean inProgress, String type, String description, String people, Double priority) {
         this.id = id;
         this.summary = summary;
         this.depValue = depValue;
         this.productValue = productValue;
-        this.people = people;
         this.completionDate = completionDate;
         this.inProgress = inProgress;
         this.type = type;
+        this.description = description;
+        this.people = people;
+        this.priority = priority;
     }
 
     public String getId() {
@@ -40,10 +43,6 @@ public class WorkItem {
         return productValue;
     }
 
-    public List<String> getPeople() {
-        return people;
-    }
-
     public LocalDate getCompletionDate() {
         return completionDate;
     }
@@ -54,5 +53,17 @@ public class WorkItem {
 
     public boolean isEpic() {
         return type.equals("Epic");
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPeople() {
+        return people;
+    }
+
+    public Double getPriority() {
+        return priority;
     }
 }

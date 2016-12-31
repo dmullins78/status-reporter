@@ -3,6 +3,7 @@ package com.mullco.informationater;
 import com.mullco.informationater.ppt.BacklogSection;
 import com.mullco.informationater.ppt.CompletedSection;
 import com.mullco.informationater.ppt.InProgressSection;
+import org.apache.poi.hslf.model.PPFont;
 import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 

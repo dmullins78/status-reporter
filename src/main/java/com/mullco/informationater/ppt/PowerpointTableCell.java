@@ -2,10 +2,12 @@ package com.mullco.informationater.ppt;
 
 import org.apache.poi.hslf.usermodel.HSLFTable;
 import org.apache.poi.hslf.usermodel.HSLFTableCell;
+import org.apache.poi.hslf.usermodel.HSLFTextParagraph;
 import org.apache.poi.hslf.usermodel.HSLFTextRun;
 import org.apache.poi.sl.usermodel.VerticalAlignment;
 
 import java.awt.*;
+import java.util.*;
 
 import static com.mullco.informationater.ppt.Colors.*;
 import static com.mullco.informationater.ppt.Colors.LIGHTGREEN;
@@ -34,20 +36,26 @@ public class PowerpointTableCell {
         cell.setText(textValue);
         cell.setVerticalAlignment(VerticalAlignment.TOP);
         cell.setFillColor(getRowColor(rowIndex));
-
-        HSLFTextRun rt = getFont(cell);
-        rt.setFontFamily(FONT_FAMILY);
-        rt.setFontSize(FONT_SIZE);
+        setFontStuff(cell);
 
         return cell;
     }
 
     private Color getRowColor(int rowIndex) {
-        return rowIndex % 2 == 0 ? LIGHTGREEN() : DARKGREEN();
+        return rowIndex % 2 == 0 ? DARKGREEN() : LIGHTGREEN();
     }
 
     private HSLFTextRun getFont(HSLFTableCell cell) {
         return cell.getTextParagraphs().get(0).getTextRuns().get(0);
     }
 
+    private void setFontStuff(HSLFTableCell cell) {
+        java.util.List<HSLFTextParagraph> textParagraphs = cell.getTextParagraphs();
+        for (HSLFTextParagraph textParagraph : textParagraphs) {
+            for (HSLFTextRun hslfTextRun : textParagraph.getTextRuns()) {
+                hslfTextRun.setFontFamily(FONT_FAMILY);
+                hslfTextRun.setFontSize(FONT_SIZE);
+            }
+        }
+    }
 }

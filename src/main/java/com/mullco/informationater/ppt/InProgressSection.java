@@ -22,9 +22,9 @@ public class InProgressSection extends PowerPointSection {
 
     HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide) {
         HSLFTable table = slide.createTable(data.size() + 1, 3);
-        table.setColumnWidth(0, 50);
-        table.setColumnWidth(1, 125);
-        table.setColumnWidth(2, 435);
+        table.setColumnWidth(0, 100);
+        table.setColumnWidth(1, 130);
+        table.setColumnWidth(2, 380);
 
         cell.makeHeaderCell(table, 0, 0, "Area");
         cell.makeHeaderCell(table, 0, 1, "People");
@@ -32,11 +32,9 @@ public class InProgressSection extends PowerPointSection {
 
         for (int i = 0; i < data.size(); i++) {
             WorkItem workItem = data.get(i);
-            java.util.List<String> people = workItem.getPeople();
-
-            cell.makeBoldCell(table, i + 1, 0, workItem.getDepValue());
-            cell.makeCell(table, i + 1, 1, String.join(",", people));
-            cell.makeCell(table, i + 1, 2, workItem.getSummary());
+            cell.makeBoldCell(table, i + 1, 0, workItem.getSummary());
+            cell.makeCell(table, i + 1, 1, workItem.getPeople());
+            cell.makeCell(table, i + 1, 2, workItem.getDescription());
         }
 
         return table;
