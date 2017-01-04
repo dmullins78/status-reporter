@@ -1,7 +1,6 @@
 package com.mullco.informationater.work;
 
 import com.mullco.informationater.jira.WorkItem;
-import com.mullco.informationater.models.MonthlyStats;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,22 +10,23 @@ import java.util.stream.Collectors;
 import static java.time.LocalDate.now;
 import static java.util.stream.Collectors.toList;
 
-public class WorkItemSorter {
+public class WorkItemFilter {
 
-    public MonthlyStats sortWorkItems(List<WorkItem> workItems) {
-        List<WorkItem> inProgress = workItems.stream().filter(WorkItem::isEpic).collect(toList());
+    public static List<WorkItem> getCompleted(List<WorkItem> workItems) {
+        return workItems.stream()
+                    .filter(t -> t.getCompletionDate().isBefore(now()))
+                    .sorted((o1, o2) -> o1.getDepValue().compareTo(o2.getDepValue())).collect(toList());
+    }
 
-        List<WorkItem> completed = workItems.stream()
-                .filter(t -> t.getCompletionDate().isBefore(now()))
-                .sorted((o1, o2) -> o1.getDepValue().compareTo(o2.getDepValue())).collect(toList());
+    public static List<WorkItem> getBacklog(List<WorkItem> workItems) {
+        return workItems.stream()
+                    .filter(t -> !t.isInProgress() && t.getCompletionDate().isAfter(now()))
+                    .filter(t -> !t.isEpic())
+                    .collect(toList());
+    }
 
-
-        List<WorkItem> backlog = workItems.stream()
-                .filter(t -> !t.isInProgress() && t.getCompletionDate().isAfter(now()))
-                .filter(t -> !t.isEpic())
-                .collect(toList());
-
-        return new MonthlyStats(completed, inProgress, backlog);
+    public static List<WorkItem> getInProgress(List<WorkItem> workItems) {
+        return workItems.stream().filter(WorkItem::isEpic).collect(toList());
     }
 
     public static Map<String, List<WorkItem>> groupWorkByArea(List<WorkItem> data) {

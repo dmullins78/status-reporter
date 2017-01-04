@@ -1,6 +1,6 @@
 package com.mullco.informationater.ppt;
 
-import com.mullco.informationater.models.MonthlyStats;
+import com.mullco.informationater.jira.WorkItem;
 import com.mullco.informationater.ppt.sections.BacklogSection;
 import com.mullco.informationater.ppt.sections.CompletedSection;
 import com.mullco.informationater.ppt.sections.InProgressSection;
@@ -9,6 +9,11 @@ import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 
 import java.awt.*;
 import java.io.FileOutputStream;
+import java.util.List;
+
+import static com.mullco.informationater.work.WorkItemFilter.getBacklog;
+import static com.mullco.informationater.work.WorkItemFilter.getCompleted;
+import static com.mullco.informationater.work.WorkItemFilter.getInProgress;
 
 public class PowerPointMaker {
 
@@ -22,14 +27,14 @@ public class PowerPointMaker {
         backlogSection = new BacklogSection();
     }
 
-    public void makeStuff(MonthlyStats stats, String outputFile) {
+    public void makeStuff(List<WorkItem> stats, String outputFile) {
         HSLFSlideShow ppt = new HSLFSlideShow();
         ppt.setPageSize(new Dimension(1024, 768));
 
         HSLFSlide slide = ppt.createSlide();
-        completedSection.makeSection(stats.getCompleted(), slide);
-        inProgressSection.makeSection(stats.getInProgress(), slide);
-        backlogSection.makeSection(stats.getBacklog(), slide);
+        completedSection.makeSection(getCompleted(stats), slide);
+        inProgressSection.makeSection(getInProgress(stats), slide);
+        backlogSection.makeSection(getBacklog(stats), slide);
 
         writeToFile(ppt, outputFile);
     }

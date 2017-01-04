@@ -7,7 +7,7 @@ import org.apache.poi.hslf.usermodel.HSLFTable;
 import java.util.List;
 import java.util.Map;
 
-import static com.mullco.informationater.work.WorkItemSorter.groupWorkByArea;
+import static com.mullco.informationater.work.WorkItemFilter.groupWorkByArea;
 
 public class BacklogSection extends PowerPointSection {
     public static final String[] MEMBERS_AREAS = new String[]{"CID", "Marketing", "MFS", "MPG", "Solutions"};

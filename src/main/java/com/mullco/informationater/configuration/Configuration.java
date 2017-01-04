@@ -1,6 +1,6 @@
-package com.mullco.informationater.utils;
+package com.mullco.informationater.configuration;
 
-public class Environment {
+public class Configuration {
 
     String jiraUrl;
     String jiraUid;
@@ -9,7 +9,7 @@ public class Environment {
     String emailUid;
     String emailPwd;
 
-    public Environment(String jiraUrl, String jiraUid, String jiraPwd, String emailHost, String emailUid, String emailPwd) {
+    public Configuration(String jiraUrl, String jiraUid, String jiraPwd, String emailHost, String emailUid, String emailPwd) {
         this.jiraUrl = jiraUrl;
         this.jiraUid = jiraUid;
         this.jiraPwd = jiraPwd;

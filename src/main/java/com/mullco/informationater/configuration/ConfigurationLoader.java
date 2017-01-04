@@ -1,15 +1,15 @@
-package com.mullco.informationater.utils;
+package com.mullco.informationater.configuration;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class EnvironmentLoader {
+public class ConfigurationLoader {
 
-    public static Environment startMeUp() {
+    public static Configuration configs() {
         Properties p = getProperties();
 
-        return new Environment(
+        return new Configuration(
                 val(p, "jiraUrl"),
                 val(p, "jiraUid"),
                 val(p, "jiraPwd"),

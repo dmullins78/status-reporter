@@ -1,4 +1,4 @@
-package com.mullco.informationater.emails;
+package com.mullco.informationater.email;
 
 import javax.mail.Message;
 import javax.mail.Session;
