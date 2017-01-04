@@ -7,10 +7,8 @@ import org.apache.poi.hslf.usermodel.HSLFTextRun;
 import org.apache.poi.sl.usermodel.VerticalAlignment;
 
 import java.awt.*;
-import java.util.*;
 
 import static com.mullco.informationater.ppt.Colors.*;
-import static com.mullco.informationater.ppt.Colors.LIGHTGREEN;
 
 public class PowerpointTableCell {
     public static final String FONT_FAMILY = "Calibri";
