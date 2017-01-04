@@ -1,6 +1,7 @@
-package com.mullco.informationater;
+package com.mullco.informationater.jira;
 
 import net.rcarz.jiraclient.BasicCredentials;
+import net.rcarz.jiraclient.Comment;
 import net.rcarz.jiraclient.Issue;
 import net.rcarz.jiraclient.JiraClient;
 import net.sf.json.JSONArray;
@@ -15,7 +16,19 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
 public class JiraAdapter {
 
+    private final String jiraUrl;
+    private final String jiraUid;
+    private final String jiraPwd;
+
+    public JiraAdapter(String jiraUrl, String jiraUid, String jiraPwd) {
+        this.jiraUrl = jiraUrl;
+        this.jiraUid = jiraUid;
+        this.jiraPwd = jiraPwd;
+    }
+
     public List<WorkItem> getStuff() {
+        BasicCredentials creds = new BasicCredentials(jiraUid, jiraPwd);
+        JiraClient jira = new JiraClient(jiraUrl, creds);
 
         try {
             List<WorkItem> workItems = new ArrayList<>();
@@ -33,7 +46,7 @@ public class JiraAdapter {
     }
 
     private WorkItem makeWorkItem(Issue issue) {
-
+        String id = issue.getKey();
         String description = issue.getDescription();
         String type = issue.getIssueType().getName();
 
@@ -72,7 +85,9 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        return new WorkItem(issue.getId(), summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority);
+        List<Comment> comments = issue.getComments();
+
+        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority);
     }
 
 }

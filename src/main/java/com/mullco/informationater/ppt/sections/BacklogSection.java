@@ -1,23 +1,24 @@
-package com.mullco.informationater.ppt;
+package com.mullco.informationater.ppt.sections;
 
-import com.mullco.informationater.WorkItem;
+import com.mullco.informationater.jira.WorkItem;
 import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFTable;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+import static com.mullco.informationater.work.WorkItemSorter.groupWorkByArea;
 
 public class BacklogSection extends PowerPointSection {
-
     public static final String[] MEMBERS_AREAS = new String[]{"CID", "Marketing", "MFS", "MPG", "Solutions"};
+    public static final int COLUMN_WIDTH = 200;
 
     Integer getLeftStartPosition() {
         return 10;
     }
 
     Integer getHeightStartPosition() {
-        return 400;
+        return 430;
     }
 
     String getSectionHeaderName() {
@@ -25,14 +26,13 @@ public class BacklogSection extends PowerPointSection {
     }
 
     HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide) {
-        Map<String, List<WorkItem>> itemsByArea = groupWorkByArea(data);
-
         HSLFTable table = slide.createTable(4, 5);
         for (int i = 0; i < MEMBERS_AREAS.length; i++) {
             cell.makeHeaderCell(table, 0, i, MEMBERS_AREAS[i]);
-            table.setColumnWidth(i, 200);
+            table.setColumnWidth(i, COLUMN_WIDTH);
         }
 
+        Map<String, List<WorkItem>> itemsByArea = groupWorkByArea(data);
         for (int topThreeCounter = 1; topThreeCounter <= 3; topThreeCounter++) {
             for (int areaCounter = 0; areaCounter < MEMBERS_AREAS.length; areaCounter++) {
                 List<WorkItem> workItems = itemsByArea.get(MEMBERS_AREAS[areaCounter]);
@@ -52,13 +52,4 @@ public class BacklogSection extends PowerPointSection {
         }
     }
 
-    private Map<String, List<WorkItem>> groupWorkByArea(List<WorkItem> data) {
-        Map<String, List<WorkItem>> workByArea = data.stream().collect(Collectors.groupingBy(WorkItem::getDepValue));
-
-        for (List<WorkItem> workItems : workByArea.values()) {
-            workItems.sort((o1, o2) -> o1.getPriority().compareTo(o2.getPriority()));
-        }
-
-        return workByArea;
-    }
 }

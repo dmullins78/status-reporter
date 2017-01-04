@@ -1,5 +1,8 @@
 package com.mullco.informationater;
 
+import com.mullco.informationater.jira.WorkItem;
+import com.mullco.informationater.models.MonthlyStats;
+import com.mullco.informationater.ppt.PowerPointMaker;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.junit.Test;
 

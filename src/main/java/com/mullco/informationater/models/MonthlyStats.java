@@ -1,4 +1,6 @@
-package com.mullco.informationater;
+package com.mullco.informationater.models;
+
+import com.mullco.informationater.jira.WorkItem;
 
 import java.util.List;
 

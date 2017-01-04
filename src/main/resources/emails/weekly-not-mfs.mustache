@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Title</title>
+  </head>
+
+  <body>
+    <p>Here's what the Members team is actively working on:</p>
+    <table class="body">
+        {{#inprogress}}
+            <tr>
+                <td style="padding: 0.2rem;">
+                    <a href="{{url}}" target="_blank">{{summary}}</a><br/>
+                    {{description}}
+                </td>
+            </tr>
+        {{/inprogress}}
+    </table>
+
+    <p>We could work on these, but they haven't been prioritized:</p>
+    <table class="body">
+        {{#backlog}}
+            <tr>
+                <td style="padding: 0.1rem;">
+                    <a href="{{url}}" target="_blank">{{id}} - {{summary}}</a>
+                </td>
+            </tr>
+        {{/backlog}}
+    </table>
+  </body>
+
+</html>

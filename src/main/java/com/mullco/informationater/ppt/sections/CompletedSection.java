@@ -1,6 +1,6 @@
-package com.mullco.informationater.ppt;
+package com.mullco.informationater.ppt.sections;
 
-import com.mullco.informationater.WorkItem;
+import com.mullco.informationater.jira.WorkItem;
 import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFTable;
 

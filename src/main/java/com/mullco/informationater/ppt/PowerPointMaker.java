@@ -1,9 +1,9 @@
-package com.mullco.informationater;
+package com.mullco.informationater.ppt;
 
-import com.mullco.informationater.ppt.BacklogSection;
-import com.mullco.informationater.ppt.CompletedSection;
-import com.mullco.informationater.ppt.InProgressSection;
-import org.apache.poi.hslf.model.PPFont;
+import com.mullco.informationater.models.MonthlyStats;
+import com.mullco.informationater.ppt.sections.BacklogSection;
+import com.mullco.informationater.ppt.sections.CompletedSection;
+import com.mullco.informationater.ppt.sections.InProgressSection;
 import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 

@@ -1,4 +1,4 @@
-package com.mullco.informationater;
+package com.mullco.informationater.jira;
 
 import java.time.LocalDate;
 
@@ -65,5 +65,9 @@ public class WorkItem {
 
     public Double getPriority() {
         return priority;
+    }
+
+    public String getUrl() {
+        return "https://fhlbdm.atlassian.net/browse/" + id;
     }
 }

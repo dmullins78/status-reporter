@@ -2,12 +2,12 @@ package com.mullco.informationater;
 
 import org.junit.Test;
 
-public class MagicMakerTest {
+public class ApplicationTest {
 
     @Test
     public void shouldDoIt() throws Exception {
-        MagicMaker magicMaker = new MagicMaker();
-        magicMaker.doIt();
+        Application application = new Application();
+        application.doIt();
     }
 
 }
