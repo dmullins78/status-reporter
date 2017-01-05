@@ -18,7 +18,7 @@ public class BacklogSection extends PowerPointSection {
     }
 
     Integer getHeightStartPosition() {
-        return 430;
+        return 445;
     }
 
     String getSectionHeaderName() {

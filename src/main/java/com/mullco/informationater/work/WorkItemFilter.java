@@ -76,4 +76,11 @@ public class WorkItemFilter {
         return workItems;
     }
 
+    public static long getCompletedMaintenanceItemCount(List<WorkItem> data) {
+        return data.stream()
+                .filter(WorkItem::isDone)
+                .filter(WorkItem::isMaintenance)
+                .count();
+    }
+
 }

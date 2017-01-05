@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import static com.mullco.informationater.work.WorkItemFilter.*;
+import static java.lang.String.format;
 
 public class PowerPointMaker {
 
@@ -30,11 +31,21 @@ public class PowerPointMaker {
         ppt.setPageSize(new Dimension(1024, 768));
 
         HSLFSlide slide = ppt.createSlide();
-        completedSection.makeSection(getCompletedNoMaintenance(stats), slide);
+        completedSection.makeSection(getCompletedData(stats), slide);
         inProgressSection.makeSection(getInProgress(stats), slide);
         backlogSection.makeSection(getBacklog(stats), slide);
 
         writeToFile(ppt, outputFile);
+    }
+
+    private List<WorkItem> getCompletedData(List<WorkItem> stats) {
+        long maintenanceItemCount = getCompletedMaintenanceItemCount(stats);
+        WorkItem maintenanceItem = new WorkItem("MTC", format("Completed %s maintenance items", maintenanceItemCount));
+
+        List<WorkItem> completedWorkItems = getCompletedNoMaintenance(stats);
+        completedWorkItems.add(maintenanceItem);
+
+        return completedWorkItems;
     }
 
     private void writeToFile(HSLFSlideShow ppt, String outputFile) {

@@ -58,6 +58,7 @@ public class JiraAdapter {
 
         String name = issue.getStatus().getName();
         boolean inProgress = name.equals("In Progress");
+        boolean completed = name.equals("Done");
 
         Double priority = 99d;
         Object priorityO = issue.getField("customfield_15330");
@@ -91,7 +92,7 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority, workScope);
+        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority, workScope, completed);
     }
 
 }
