@@ -19,7 +19,7 @@ public class JobMaker {
     public List<Job> getJobs(Configuration config) {
         List<Job> jobs = new ArrayList<>();
         jobs.add(getPowerPointJob());
-        jobs.addAll(getEmailJobs(config));
+//        jobs.addAll(getEmailJobs(config));
 
         return jobs;
     }

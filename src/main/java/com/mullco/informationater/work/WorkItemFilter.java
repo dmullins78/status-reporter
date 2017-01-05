@@ -26,8 +26,21 @@ public class WorkItemFilter {
                     .collect(toList());
     }
 
+    public static List<WorkItem> getInProgress(List<WorkItem> workItems) {
+        return workItems.stream()
+                .filter(WorkItem::isInProgress)
+                .collect(toList());
+    }
+
     public static List<WorkItem> getInProgressSignificantEfforts(List<WorkItem> workItems) {
         return workItems.stream().filter(WorkItem::isEpic).collect(toList());
+    }
+
+    public static List<WorkItem> getInProgressEnhancements(List<WorkItem> workItems) {
+        return workItems.stream()
+                .filter(WorkItem::isInProgress)
+                .filter(t -> !t.isEpic())
+                .collect(toList());
     }
 
     public static Map<String, List<WorkItem>> groupWorkByArea(List<WorkItem> data) {
