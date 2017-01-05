@@ -25,7 +25,7 @@ public class EmailNotMFSJob implements Job {
     }
 
     public int execute(List<WorkItem> workItems) {
-        List<WorkItem> inProgress = getInProgress(workItems);
+        List<WorkItem> inProgress = getInProgressSignificantEfforts(workItems);
         Map<String, List<WorkItem>> backlogByArea = groupWorkByArea(getBacklog(workItems));
 
         for (String area : NOT_MFS_MEMBER_AREAS) {

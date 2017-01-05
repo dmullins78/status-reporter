@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.mullco.informationater.work.WorkItemFilter.getBacklog;
-import static com.mullco.informationater.work.WorkItemFilter.getInProgress;
+import static com.mullco.informationater.work.WorkItemFilter.getInProgressSignificantEfforts;
 import static com.mullco.informationater.work.WorkItemFilter.groupWorkByProduct;
 
 public class EmailMFSJob implements Job {
@@ -28,7 +28,7 @@ public class EmailMFSJob implements Job {
     public int execute(List<WorkItem> workItems) {
         Map<String, List<WorkItem>> backlogByProduct = groupWorkByProduct("MFS", getBacklog(workItems));
 
-        String message = templateGenerator.getEmailText(getInProgress(workItems), backlogByProduct);
+        String message = templateGenerator.getEmailText(getInProgressSignificantEfforts(workItems), backlogByProduct);
 
         emailSender.sendIt(message);
 

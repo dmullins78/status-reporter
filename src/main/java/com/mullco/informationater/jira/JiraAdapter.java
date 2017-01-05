@@ -71,6 +71,12 @@ public class JiraAdapter {
             depValue = "" + ((JSONObject)department).get("value");
         }
 
+        String workScope = "";
+        Object scope = issue.getField("customfield_15100");
+        if (scope instanceof JSONObject) {
+            workScope = "" + ((JSONObject)scope).get("value");
+        }
+
         LocalDate completionDateValue = LocalDate.now().plusDays(1);
         Object completionDate = issue.getField("customfield_11300");
         if (completionDate instanceof String) {
@@ -85,9 +91,7 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        List<Comment> comments = issue.getComments();
-
-        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority);
+        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority, workScope);
     }
 
 }

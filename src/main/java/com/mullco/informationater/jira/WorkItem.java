@@ -13,8 +13,9 @@ public class WorkItem {
     private String description;
     private String people;
     private Double priority;
+    private String scope;
 
-    public WorkItem(String id, String summary, String depValue, String productValue, LocalDate completionDate, boolean inProgress, String type, String description, String people, Double priority) {
+    public WorkItem(String id, String summary, String depValue, String productValue, LocalDate completionDate, boolean inProgress, String type, String description, String people, Double priority, String scope) {
         this.id = id;
         this.summary = summary;
         this.depValue = depValue;
@@ -25,6 +26,7 @@ public class WorkItem {
         this.description = description;
         this.people = people;
         this.priority = priority;
+        this.scope = scope;
     }
 
     public String getId() {
@@ -69,5 +71,9 @@ public class WorkItem {
 
     public String getUrl() {
         return "https://fhlbdm.atlassian.net/browse/" + id;
+    }
+
+    public boolean isMaintenance() {
+        return scope.equals("Maintenance");
     }
 }

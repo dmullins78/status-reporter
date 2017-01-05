@@ -12,8 +12,8 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import static com.mullco.informationater.work.WorkItemFilter.getBacklog;
-import static com.mullco.informationater.work.WorkItemFilter.getCompleted;
-import static com.mullco.informationater.work.WorkItemFilter.getInProgress;
+import static com.mullco.informationater.work.WorkItemFilter.getCompletedNoMaintenance;
+import static com.mullco.informationater.work.WorkItemFilter.getInProgressSignificantEfforts;
 
 public class PowerPointMaker {
 
@@ -32,8 +32,8 @@ public class PowerPointMaker {
         ppt.setPageSize(new Dimension(1024, 768));
 
         HSLFSlide slide = ppt.createSlide();
-        completedSection.makeSection(getCompleted(stats), slide);
-        inProgressSection.makeSection(getInProgress(stats), slide);
+        completedSection.makeSection(getCompletedNoMaintenance(stats), slide);
+        inProgressSection.makeSection(getInProgressSignificantEfforts(stats), slide);
         backlogSection.makeSection(getBacklog(stats), slide);
 
         writeToFile(ppt, outputFile);

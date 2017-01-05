@@ -12,8 +12,9 @@ import static java.util.stream.Collectors.toList;
 
 public class WorkItemFilter {
 
-    public static List<WorkItem> getCompleted(List<WorkItem> workItems) {
+    public static List<WorkItem> getCompletedNoMaintenance(List<WorkItem> workItems) {
         return workItems.stream()
+                    .filter(t -> !t.isMaintenance())
                     .filter(t -> t.getCompletionDate().isBefore(now()))
                     .sorted((o1, o2) -> o1.getDepValue().compareTo(o2.getDepValue())).collect(toList());
     }
@@ -25,7 +26,7 @@ public class WorkItemFilter {
                     .collect(toList());
     }
 
-    public static List<WorkItem> getInProgress(List<WorkItem> workItems) {
+    public static List<WorkItem> getInProgressSignificantEfforts(List<WorkItem> workItems) {
         return workItems.stream().filter(WorkItem::isEpic).collect(toList());
     }
 

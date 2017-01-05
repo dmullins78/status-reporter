@@ -23,17 +23,17 @@ public abstract class PowerPointSection {
     abstract HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide);
 
     protected HSLFTextBox makeSectionHeader(HSLFSlide slide, String completed) {
-        HSLFTextBox t1 = slide.createTextBox();
-        t1.setText(completed);
-        t1.setHorizontalCentered(false);
-        t1.getTextParagraphs().get(0).getTextRuns().get(0).setFontSize(26.);
-        t1.setAnchor(new Rectangle(200, 26));
-        return t1;
+        HSLFTextBox sectionLabel = slide.createTextBox();
+        sectionLabel.setText(completed);
+        sectionLabel.setHorizontalCentered(false);
+        sectionLabel.getTextParagraphs().get(0).getTextRuns().get(0).setFontSize(26.);
+        sectionLabel.setAnchor(new Rectangle(200, 26));
+        return sectionLabel;
     }
 
     public void makeSection(List<WorkItem> data, HSLFSlide slide) {
-        HSLFTextBox t3 = makeSectionHeader(slide, getSectionHeaderName());
-        t3.moveTo(getLeftStartPosition(), getHeightStartPosition());
+        HSLFTextBox sectionHeader = makeSectionHeader(slide, getSectionHeaderName());
+        sectionHeader.moveTo(getLeftStartPosition(), getHeightStartPosition());
 
         HSLFTable table = populateTable(data, slide);
         table.moveTo(getLeftStartPosition(), getHeightStartPosition() + 35);
