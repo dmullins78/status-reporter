@@ -86,4 +86,12 @@ public class WorkItem {
     public boolean isDone() {
         return done;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getScope() {
+        return scope;
+    }
 }

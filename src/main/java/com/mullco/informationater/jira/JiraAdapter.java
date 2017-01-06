@@ -46,14 +46,15 @@ public class JiraAdapter {
     }
 
     private WorkItem makeWorkItem(Issue issue) {
+        String description = null;
         String id = issue.getKey();
-        String description = issue.getDescription();
         String type = issue.getIssueType().getName();
 
         String summary = issue.getSummary();
         String people = null;
         if (type.equals("Epic")) {
             people = (String) issue.getField("customfield_10801");
+            description = issue.getDescription();
         }
 
         String name = issue.getStatus().getName();
