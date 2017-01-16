@@ -14,8 +14,10 @@ import java.util.Map;
 public class EmailTemplateGenerator {
 
     private final MustacheFactory mf;
+    private String jiraUrl;
 
-    public EmailTemplateGenerator() {
+    public EmailTemplateGenerator(String jiraUrl) {
+        this.jiraUrl = jiraUrl;
         mf = new DefaultMustacheFactory();
     }
 
@@ -28,6 +30,7 @@ public class EmailTemplateGenerator {
     private String generate(List<WorkItem> inProgress, Map<String, List<WorkItem>> backlog, Mustache mustache) {
         try {
             Map<String, Object> params = new HashMap<>();
+            params.put("jira", jiraUrl);
             params.put("inprogress", inProgress);
             params.put("backlog", backlog.entrySet());
 

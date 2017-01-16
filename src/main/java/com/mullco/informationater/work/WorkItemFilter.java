@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.lang.String.format;
 import static java.time.LocalDate.now;
 import static java.util.stream.Collectors.toList;
 
@@ -41,6 +42,18 @@ public class WorkItemFilter {
                 .filter(WorkItem::isInProgress)
                 .filter(t -> !t.isEpic())
                 .collect(toList());
+    }
+
+    public static List<WorkItem> asSignificantEfforts(List<WorkItem> workItems) {
+        return workItems.stream()
+                .map(WorkItemFilter::transformEnhToSigEff)
+                .collect(toList());
+    }
+
+    private static WorkItem transformEnhToSigEff(WorkItem workItem) {
+        String description = format("%s/%s", workItem.getDepValue(), workItem.getId());
+
+        return new WorkItem(workItem.getId(), description, null, null, workItem.getCompletionDate(), true, null, workItem.getSummary(), null, null, null, false);
     }
 
     public static Map<String, List<WorkItem>> groupWorkByArea(List<WorkItem> data) {

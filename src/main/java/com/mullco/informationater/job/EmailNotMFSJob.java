@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mullco.informationater.email.EmailDetails.getDigestEmailDefaults;
 import static com.mullco.informationater.work.WorkItemFilter.*;
 
 public class EmailNotMFSJob implements Job {
@@ -30,7 +31,9 @@ public class EmailNotMFSJob implements Job {
 
         for (String area : NOT_MFS_MEMBER_AREAS) {
             String message = templateGenerator.getEmailText(inProgress, asMap(backlogByArea, area));
-            emailSender.sendIt(message);
+            Map<String, String> emailParams = getDigestEmailDefaults(message);
+
+            emailSender.sendIt(emailParams);
         }
 
         return 0;

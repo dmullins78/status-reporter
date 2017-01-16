@@ -8,31 +8,59 @@
   </head>
 
   <body>
-    <p>Here's what the Members team is actively working on:</p>
-    <table class="body">
-        {{#inprogress}}
-            <tr>
-                <td style="padding: 0.2rem;">
-                    <a href="{{url}}" target="_blank">{{summary}}</a><br/>
-                    {{description}}
-                </td>
-            </tr>
-        {{/inprogress}}
-    </table>
 
-    <p>We could work on these, but they haven't been prioritized:</p>
-    {{#backlog}}
-        <p style="font-weight: bold">{{key}}</p>
-        <table class="body">
-            {{#value}}
-                <tr>
-                    <td style="padding: 0.1rem;">
-                        <a href="{{url}}" target="_blank">{{id}} - {{summary}}</a>
-                    </td>
-                </tr>
-            {{/value}}
-        </table>
-    {{/backlog}}
+    <div style="margin:0;font-size:11pt;">
+        <font face="Calibri,sans-serif">
+            <span>
+                <font size="2">
+                    <span style="font-size:9pt;">
+                        <i>(You received this email because you are supported by the Members IT team)</i>
+                    </span>
+                </font>
+            </span>
+
+            <br/><br/>
+
+            <span>
+                The following items are in-progress. Long-running, high-value initiatives are prioritized by the Members executive team.
+                Smaller items are prioritized between Cherie Schuler, Dan Mullins, and the requestor.
+            </span>
+
+            <table class="body">
+                {{#inprogress}}
+                    <tr>
+                        <td style="padding: 0.2rem;font-size:11pt;">
+                            <a href="{{url}}" target="_blank">{{summary}}</a> ({{completionDate}})<br/>
+                            {{description}}
+                        </td>
+                    </tr>
+                {{/inprogress}}
+            </table>
+
+            <br/>
+
+            <div>
+                The following items are on the Members backlog, but not started.
+                If you know something that impacts their priority, please contact
+                <a href="mailto:dmullins@fhlbdm.com">Dan Mullins</a>.
+                If we're missing something, <a href="{{jira}}/secure/CreateIssue!default.jspa">click here and add it</a>
+            </div>
+
+            {{#backlog}}
+                <p style="font-weight: bold">{{key}}</p>
+                <table class="body">
+                    {{#value}}
+                        <tr>
+                            <td style="padding: 0.1rem;">
+                                <a href="{{url}}" target="_blank">{{id}} - {{summary}}</a>
+                            </td>
+                        </tr>
+                    {{/value}}
+                </table>
+            {{/backlog}}
+
+        </font>
+    </div>
   </body>
 
 </html>

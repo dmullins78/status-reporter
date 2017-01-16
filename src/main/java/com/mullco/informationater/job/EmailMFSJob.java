@@ -7,9 +7,8 @@ import com.mullco.informationater.jira.WorkItem;
 import java.util.List;
 import java.util.Map;
 
-import static com.mullco.informationater.work.WorkItemFilter.getBacklog;
-import static com.mullco.informationater.work.WorkItemFilter.getInProgressSignificantEfforts;
-import static com.mullco.informationater.work.WorkItemFilter.groupWorkByProduct;
+import static com.mullco.informationater.email.EmailDetails.getDigestEmailDefaults;
+import static com.mullco.informationater.work.WorkItemFilter.*;
 
 public class EmailMFSJob implements Job {
 
@@ -27,11 +26,23 @@ public class EmailMFSJob implements Job {
 
     public int execute(List<WorkItem> workItems) {
         Map<String, List<WorkItem>> backlogByProduct = groupWorkByProduct("MFS", getBacklog(workItems));
+        List<WorkItem> ipItems = getInProgressItems(workItems);
 
-        String message = templateGenerator.getEmailText(getInProgressSignificantEfforts(workItems), backlogByProduct);
+        String message = templateGenerator.getEmailText(ipItems, backlogByProduct);
 
-        emailSender.sendIt(message);
+        Map<String, String> emailParams = getDigestEmailDefaults(message);
+        emailSender.sendIt(emailParams);
 
         return 0;
     }
+
+    private List<WorkItem> getInProgressItems(List<WorkItem> workItems) {
+        List<WorkItem> ipSigEfforts = getInProgressSignificantEfforts(workItems);
+
+        List<WorkItem> ipEnhancements = asSignificantEfforts(getInProgressEnhancements(workItems));
+        ipSigEfforts.addAll(ipEnhancements);
+
+        return ipSigEfforts;
+    }
+
 }

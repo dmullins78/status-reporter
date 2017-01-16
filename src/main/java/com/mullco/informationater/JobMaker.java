@@ -16,19 +16,22 @@ public class JobMaker {
 
     public List<Job> getJobs(Configuration config) {
         List<Job> jobs = new ArrayList<>();
-        jobs.add(getDatabaseMigrationJob(config));
-        jobs.add(getPowerPointJob());
-        jobs.add(getPersistWorkJob(config));
-//        jobs.addAll(getEmailJobs(config));
+//        jobs.add(getDatabaseMigrationJob(config));
+//        jobs.add(getPowerPointJob());
+//        jobs.add(getPersistWorkJob(config));
+        jobs.addAll(getEmailJobs(config));
 
         return jobs;
     }
 
     private List<Job> getEmailJobs(Configuration env) {
         EmailSender emailSender = new EmailSender(env.getEmailHost(), env.getEmailUid(), env.getEmailPwd());
-        EmailTemplateGenerator templateGenerator = new EmailTemplateGenerator();
+        EmailTemplateGenerator templateGenerator = new EmailTemplateGenerator(env.getJiraUrl());
 
-        return asList(new EmailMFSJob(emailSender, templateGenerator), new EmailNotMFSJob(emailSender, templateGenerator));
+        EmailMFSJob mfsJob = new EmailMFSJob(emailSender, templateGenerator);
+        EmailNotMFSJob notMFSJob = new EmailNotMFSJob(emailSender, templateGenerator);
+
+        return asList(mfsJob);
     }
 
     private PowerPointJob getPowerPointJob() {
