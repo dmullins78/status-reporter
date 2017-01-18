@@ -17,7 +17,7 @@ public class CompletedSection extends PowerPointSection {
     }
 
     String getSectionHeaderName() {
-        return "Completed";
+        return null;
     }
 
     HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide) {
@@ -26,7 +26,7 @@ public class CompletedSection extends PowerPointSection {
         table.setColumnWidth(1, 325);
 
         cell.makeHeaderCell(table, 0, 0, "Area");
-        cell.makeHeaderCell(table, 0, 1, "");
+        cell.makeHeaderCell(table, 0, 1, "Completed");
 
         for (int i = 0; i < data.size(); i++) {
             WorkItem workItem = data.get(i);

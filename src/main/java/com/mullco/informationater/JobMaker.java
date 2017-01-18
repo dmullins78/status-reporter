@@ -17,9 +17,9 @@ public class JobMaker {
     public List<Job> getJobs(Configuration config) {
         List<Job> jobs = new ArrayList<>();
 //        jobs.add(getDatabaseMigrationJob(config));
-//        jobs.add(getPowerPointJob());
+        jobs.add(getPowerPointJob());
 //        jobs.add(getPersistWorkJob(config));
-        jobs.addAll(getEmailJobs(config));
+//        jobs.addAll(getEmailJobs(config));
 
         return jobs;
     }

@@ -18,28 +18,39 @@ public abstract class PowerPointSection {
     }
 
     abstract Integer getLeftStartPosition();
+
     abstract Integer getHeightStartPosition();
+
     abstract String getSectionHeaderName();
+
     abstract HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide);
 
-    protected HSLFTextBox makeSectionHeader(HSLFSlide slide, String completed) {
+    protected HSLFTextBox makeSectionHeader(HSLFSlide slide, String labelText) {
         HSLFTextBox sectionLabel = slide.createTextBox();
-        sectionLabel.setText(completed);
+        sectionLabel.setText(labelText);
         sectionLabel.setHorizontalCentered(false);
         sectionLabel.getTextParagraphs().get(0).getTextRuns().get(0).setFontSize(26.);
         sectionLabel.setAnchor(new Rectangle(200, 26));
         return sectionLabel;
     }
 
-    public void makeSection(List<WorkItem> data, HSLFSlide slide) {
+    public void makeSectionWithHeader(List<WorkItem> data, HSLFSlide slide) {
         HSLFTextBox sectionHeader = makeSectionHeader(slide, getSectionHeaderName());
         sectionHeader.moveTo(getLeftStartPosition(), getHeightStartPosition());
 
-        HSLFTable table = populateTable(data, slide);
-        table.moveTo(getLeftStartPosition(), getHeightStartPosition() + 35);
+        makeTableWithHeightOffset(data, slide, 35);
+    }
 
-        DrawTableShape dts1 = new DrawTableShape(table);
-        dts1.setAllBorders(1.0, Color.white);
+    public void makeSection(List<WorkItem> data, HSLFSlide slide) {
+        makeTableWithHeightOffset(data, slide, 0);
+    }
+
+    private void makeTableWithHeightOffset(List<WorkItem> data, HSLFSlide slide, int offset) {
+        HSLFTable table = populateTable(data, slide);
+        table.moveTo(getLeftStartPosition(), getHeightStartPosition() + offset);
+
+        DrawTableShape tableShape = new DrawTableShape(table);
+        tableShape.setAllBorders(1.0, Color.white);
     }
 
 }

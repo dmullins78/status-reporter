@@ -44,12 +44,32 @@ public class BacklogSection extends PowerPointSection {
     }
 
     private void makeCell(HSLFTable table, int topThreeCounter, int areaCounter, List<WorkItem> workItems) {
-        if (workItems != null && workItems.size() >= topThreeCounter) {
+        String summary = "";
+
+        if (areaHasEnoughWork(topThreeCounter, workItems)) {
             WorkItem workItem = workItems.get(topThreeCounter - 1);
-            cell.makeCell(table, topThreeCounter, areaCounter, workItem.getSummary());
-        } else {
-            cell.makeCell(table, topThreeCounter, areaCounter, "");
+            summary = getSummaryText(workItem);
         }
+
+        cell.makeCell(table, topThreeCounter, areaCounter, summary);
+    }
+
+    private boolean areaHasEnoughWork(int topThreeCounter, List<WorkItem> workItems) {
+        return workItems != null && workItems.size() >= topThreeCounter;
+    }
+
+    private String getSummaryText(WorkItem workItem) {
+        String summary = workItem.getSummary();
+
+        if (isAlreadyPrioritized(workItem)) {
+            summary = summary + "*";
+        }
+
+        return summary;
+    }
+
+    private boolean isAlreadyPrioritized(WorkItem workItem) {
+        return workItem.getDepartmentPriority() > 0;
     }
 
 }

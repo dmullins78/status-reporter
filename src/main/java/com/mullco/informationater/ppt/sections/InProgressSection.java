@@ -20,7 +20,7 @@ public class InProgressSection extends PowerPointSection {
     }
 
     String getSectionHeaderName() {
-        return "In-Progress";
+        return null;
     }
 
     HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide) {
@@ -31,7 +31,7 @@ public class InProgressSection extends PowerPointSection {
 
         cell.makeHeaderCell(table, 0, 0, "Area");
         cell.makeHeaderCell(table, 0, 1, "People");
-        cell.makeHeaderCell(table, 0, 2, "");
+        cell.makeHeaderCell(table, 0, 2, "In-Progress");
 
         List<WorkItem> sigEfforts = getInProgressSignificantEfforts(data);
         addSignificantEfforts(sigEfforts, table);

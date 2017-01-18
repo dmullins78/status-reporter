@@ -33,7 +33,7 @@ public class PowerPointMaker {
         HSLFSlide slide = ppt.createSlide();
         completedSection.makeSection(getCompletedData(stats), slide);
         inProgressSection.makeSection(getInProgress(stats), slide);
-        backlogSection.makeSection(getBacklog(stats), slide);
+        backlogSection.makeSectionWithHeader(getBacklog(stats), slide);
 
         writeToFile(ppt, outputFile);
     }
