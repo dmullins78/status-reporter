@@ -67,6 +67,12 @@ public class JiraAdapter {
             priority = (Double) priorityO;
         }
 
+        Double departmentPriority = 0d;
+        Object departmentPriority0 = issue.getField("customfield_16400");
+        if (departmentPriority0 instanceof Double) {
+            departmentPriority = (Double) priorityO;
+        }
+
         String depValue = "";
         Object department = issue.getField("customfield_13602");
         if (department instanceof JSONObject) {
@@ -93,7 +99,7 @@ public class JiraAdapter {
             productValue = products.getJSONObject(0).getString("value");
         }
 
-        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority, workScope, completed);
+        return new WorkItem(id, summary, depValue, productValue, completionDateValue, inProgress, type, description, people, priority, workScope, completed, departmentPriority);
     }
 
 }

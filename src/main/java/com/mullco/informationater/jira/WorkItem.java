@@ -15,8 +15,9 @@ public class WorkItem {
     private Double priority;
     private String scope;
     private boolean done;
+    private Double departmentPriority;
 
-    public WorkItem(String id, String summary, String depValue, String productValue, LocalDate completionDate, boolean inProgress, String type, String description, String people, Double priority, String scope, boolean done) {
+    public WorkItem(String id, String summary, String depValue, String productValue, LocalDate completionDate, boolean inProgress, String type, String description, String people, Double priority, String scope, boolean done, Double departmentPriority) {
         this.id = id;
         this.summary = summary;
         this.depValue = depValue;
@@ -29,10 +30,11 @@ public class WorkItem {
         this.priority = priority;
         this.scope = scope;
         this.done = done;
+        this.departmentPriority = departmentPriority;
     }
 
     public WorkItem(String depValue, String summary) {
-        this(null, summary, depValue, null, null, false, null, null, null, 0., null, true);
+        this(null, summary, depValue, null, null, false, null, null, null, 0., null, true, 0.);
     }
 
     public String getId() {
@@ -93,5 +95,9 @@ public class WorkItem {
 
     public String getScope() {
         return scope;
+    }
+
+    public Double getDepartmentPriority() {
+        return departmentPriority;
     }
 }
