@@ -44,6 +44,13 @@ public class WorkItemFilter {
                 .collect(toList());
     }
 
+    public static List<WorkItem> getInProgressEnhancementsAndMaintenance(List<WorkItem> workItems) {
+        return workItems.stream()
+                .filter(WorkItem::isInProgress)
+                .filter(t -> !t.isEpic() && !t.isMaintenance())
+                .collect(toList());
+    }
+
     public static List<WorkItem> asSignificantEfforts(List<WorkItem> workItems) {
         return workItems.stream()
                 .map(WorkItemFilter::transformEnhToSigEff)

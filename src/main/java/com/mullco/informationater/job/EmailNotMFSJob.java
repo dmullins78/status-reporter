@@ -11,7 +11,7 @@ import java.util.Map;
 import static com.mullco.informationater.email.EmailDetails.getDigestEmailDefaults;
 import static com.mullco.informationater.work.WorkItemFilter.*;
 
-public class EmailNotMFSJob implements Job {
+public class EmailNotMFSJob extends EmailDigest implements Job {
     private static final String[] NOT_MFS_MEMBER_AREAS = new String[]{"CID", "Marketing", "MPG", "Solutions"};
     private final EmailSender emailSender;
     private final EmailTemplateGenerator templateGenerator;
@@ -26,7 +26,7 @@ public class EmailNotMFSJob implements Job {
     }
 
     public int execute(List<WorkItem> workItems) {
-        List<WorkItem> inProgress = getInProgressSignificantEfforts(workItems);
+        List<WorkItem> inProgress = getInProgressItems(workItems);
         Map<String, List<WorkItem>> backlogByArea = groupWorkByArea(getBacklog(workItems));
 
         for (String area : NOT_MFS_MEMBER_AREAS) {
