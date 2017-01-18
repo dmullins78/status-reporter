@@ -40,7 +40,7 @@ public class WorkItemFilter {
     public static List<WorkItem> getInProgressEnhancements(List<WorkItem> workItems) {
         return workItems.stream()
                 .filter(WorkItem::isInProgress)
-                .filter(t -> !t.isEpic())
+                .filter(t -> !t.isEpic() && !t.isMaintenance())
                 .collect(toList());
     }
 
@@ -53,7 +53,7 @@ public class WorkItemFilter {
     private static WorkItem transformEnhToSigEff(WorkItem workItem) {
         String description = format("%s/%s", workItem.getDepValue(), workItem.getId());
 
-        return new WorkItem(workItem.getId(), description, null, null, workItem.getCompletionDate(), true, null, workItem.getSummary(), null, null, null, false);
+        return new WorkItem(workItem.getId(), description, null, null, workItem.getCompletionDate(), true, null, workItem.getSummary(), null, null, null, false, 0.);
     }
 
     public static Map<String, List<WorkItem>> groupWorkByArea(List<WorkItem> data) {
