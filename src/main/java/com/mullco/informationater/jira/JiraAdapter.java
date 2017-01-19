@@ -1,14 +1,13 @@
 package com.mullco.informationater.jira;
 
-import net.rcarz.jiraclient.BasicCredentials;
-import net.rcarz.jiraclient.Comment;
-import net.rcarz.jiraclient.Issue;
-import net.rcarz.jiraclient.JiraClient;
+import net.rcarz.jiraclient.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.time.LocalDate.parse;
@@ -89,6 +88,14 @@ public class JiraAdapter {
         Object completionDate = issue.getField("customfield_11300");
         if (completionDate instanceof String) {
             completionDateValue = parse((String)completionDate, ISO_LOCAL_DATE);
+        }
+
+        if (issue.getResolution() != null) {
+            boolean isDone = issue.getResolution().getName().equals("Done");
+            if (isDone) {
+                Date resolutionDate = issue.getResolutionDate();
+                completionDateValue = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(resolutionDate));
+            }
         }
 
         String productValue = "Other";

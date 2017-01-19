@@ -15,16 +15,16 @@ public class WorkItemFilter {
 
     public static List<WorkItem> getCompletedNoMaintenance(List<WorkItem> workItems) {
         return workItems.stream()
-                    .filter(t -> !t.isMaintenance())
-                    .filter(t -> t.getCompletionDate().isBefore(now()))
-                    .sorted((o1, o2) -> o1.getDepValue().compareTo(o2.getDepValue())).collect(toList());
+                .filter(t -> !t.isMaintenance())
+                .filter(t -> t.getCompletionDate().isBefore(now().plusDays(1)))
+                .sorted((o1, o2) -> o1.getDepValue().compareTo(o2.getDepValue())).collect(toList());
     }
 
     public static List<WorkItem> getBacklog(List<WorkItem> workItems) {
         return workItems.stream()
-                    .filter(t -> !t.isInProgress() && t.getCompletionDate().isAfter(now()))
-                    .filter(t -> !t.isEpic())
-                    .collect(toList());
+                .filter(t -> !t.isInProgress() && t.getCompletionDate().isAfter(now()))
+                .filter(t -> !t.isEpic())
+                .collect(toList());
     }
 
     public static List<WorkItem> getInProgress(List<WorkItem> workItems) {

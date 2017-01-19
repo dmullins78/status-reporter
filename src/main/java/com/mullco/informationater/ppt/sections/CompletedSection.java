@@ -22,7 +22,7 @@ public class CompletedSection extends PowerPointSection {
 
     HSLFTable populateTable(List<WorkItem> data, HSLFSlide slide) {
         HSLFTable table = slide.createTable(data.size() + 1, 2);
-        table.setColumnWidth(0, 50);
+        table.setColumnWidth(0, 60);
         table.setColumnWidth(1, 325);
 
         cell.makeHeaderCell(table, 0, 0, "Area");
