@@ -12,7 +12,7 @@ import static com.mullco.informationater.work.WorkItemFilter.getInProgressSignif
 public class InProgressSection extends PowerPointSection {
 
     Integer getLeftStartPosition() {
-        return 400;
+        return 410;
     }
 
     Integer getHeightStartPosition() {
@@ -27,7 +27,7 @@ public class InProgressSection extends PowerPointSection {
         HSLFTable table = slide.createTable(data.size() + 2, 3);
         table.setColumnWidth(0, 100);
         table.setColumnWidth(1, 130);
-        table.setColumnWidth(2, 380);
+        table.setColumnWidth(2, 370);
 
         cell.makeHeaderCell(table, 0, 0, "Area");
         cell.makeHeaderCell(table, 0, 1, "People");

@@ -39,10 +39,10 @@ public class PowerPointMaker {
     }
 
     private List<WorkItem> getCompletedData(List<WorkItem> stats) {
-        long maintenanceItemCount = getCompletedMaintenanceItemCount(stats);
+        long maintenanceItemCount = getCompletedMaintenanceItemCountInLastDays(stats, 30);
         WorkItem maintenanceItem = new WorkItem("MTC", format("Completed %s maintenance items", maintenanceItemCount));
 
-        List<WorkItem> completedWorkItems = getCompletedNoMaintenance(stats);
+        List<WorkItem> completedWorkItems = getCompletedNoMaintenanceInLastDays(stats, 30);
         completedWorkItems.add(maintenanceItem);
 
         return completedWorkItems;

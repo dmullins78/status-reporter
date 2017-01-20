@@ -4,7 +4,11 @@ import com.mullco.informationater.jira.WorkItem;
 import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFTable;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static java.time.format.DateTimeFormatter.*;
 
 public class CompletedSection extends PowerPointSection {
 
@@ -26,7 +30,7 @@ public class CompletedSection extends PowerPointSection {
         table.setColumnWidth(1, 325);
 
         cell.makeHeaderCell(table, 0, 0, "Area");
-        cell.makeHeaderCell(table, 0, 1, "Completed");
+        cell.makeHeaderCell(table, 0, 1, getLabel());
 
         for (int i = 0; i < data.size(); i++) {
             WorkItem workItem = data.get(i);
@@ -35,6 +39,12 @@ public class CompletedSection extends PowerPointSection {
         }
 
         return table;
+    }
+
+    private String getLabel() {
+        LocalDate thirtyDaysAgo = LocalDate.now().minusDays(30);
+
+        return "Completed since " + thirtyDaysAgo.format(ofPattern("MM/dd/yyyy"));
     }
 
 }

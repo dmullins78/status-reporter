@@ -13,10 +13,11 @@ import static java.util.stream.Collectors.toList;
 
 public class WorkItemFilter {
 
-    public static List<WorkItem> getCompletedNoMaintenance(List<WorkItem> workItems) {
+    public static List<WorkItem> getCompletedNoMaintenanceInLastDays(List<WorkItem> workItems, Integer daysAgo) {
         return workItems.stream()
                 .filter(t -> !t.isMaintenance())
-                .filter(t -> t.getCompletionDate().isBefore(now().plusDays(1)))
+                .filter(t -> t.getCompletionDate().isBefore(now()))
+                .filter(t -> t.getCompletionDate().isAfter(now().minusDays(daysAgo)))
                 .sorted((o1, o2) -> o1.getDepValue().compareTo(o2.getDepValue())).collect(toList());
     }
 
@@ -96,10 +97,11 @@ public class WorkItemFilter {
         return workItems;
     }
 
-    public static long getCompletedMaintenanceItemCount(List<WorkItem> data) {
+    public static long getCompletedMaintenanceItemCountInLastDays(List<WorkItem> data, Integer daysAgo) {
         return data.stream()
                 .filter(WorkItem::isDone)
                 .filter(WorkItem::isMaintenance)
+                .filter(t -> t.getCompletionDate().isAfter(now().minusDays(daysAgo)))
                 .count();
     }
 
